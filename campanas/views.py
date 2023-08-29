@@ -23,7 +23,7 @@ from paypal.standard.forms import PayPalPaymentsForm
 from .models import Campaign, Comment, Contribution, Category
 
 # URL base para el entorno de desarrollo con ngrok
-ngrok_base_url = "https://7a54-181-199-59-173.ngrok-free.app"  # Asegúrate de reemplazar esto con tu URL ngrok actual
+ngrok_base_url = "https://originoasis.azurewebsites.net"  # Asegúrate de reemplazar esto con tu URL ngrok actual
 
 # Función para manejar el inicio de sesión
 def do_login(request):
@@ -167,7 +167,7 @@ def campaign_detail(request, campaign_id):
     # Configuración de PayPal
     invoice_id = str(uuid.uuid4())
     paypal_dict = {
-        "business": "sb-ks7kj27145700@personal.example.com",
+        "business": "pasm.28.10@gmail.com",
         "amount": "0",  # Aquí deberías configurar el monto real
         "custom": json.dumps({"user_id": request.user.id, "campaign_id": campaign.id}),
         "item_name": campaign.name,
@@ -245,7 +245,7 @@ def handle_valid_ipn(sender, **kwargs):
 
     if ipn_obj.payment_status == ST_PP_COMPLETED:
         # (Código para manejar el estado de la contribución)
-        if ipn_obj.receiver_email != "sb-ks7kj27145700@personal.example.com":
+        if ipn_obj.receiver_email != "pasm.28.10@gmail.com":
             return
 
         # Crear la contribución con el estado "Completado"

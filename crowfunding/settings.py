@@ -162,5 +162,5 @@ MEDIA_URL = '/media/'
  
 
 PAYPAL_RECEIVER_EMAIL = "pasm.28.10@gmail.com"
-PAYPAL_TEST = True  # Poner esto a False cuando estés listo para pasar a producción
+PAYPAL_TEST = False  # Poner esto a False cuando estés listo para pasar a producción
 
