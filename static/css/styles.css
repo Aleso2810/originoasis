@@ -1,0 +1,979 @@
+:root {
+    --primary-color: #269AC4;
+    --secondary-color: #6CB965;
+    --tertiary-color: #c3c7ac;
+
+    --custom-danger:  #e74c3c; 
+    --custom-warning: #fffb16;
+    --custom-success: #6CB965;
+}
+
+/* Estilos para el carrusel */
+.carousel-control-prev, .carousel-control-next {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-top: 8px;
+    background-color: rgba(44, 62, 80, 0.5); /* Color secundario con transparencia */
+    color: #3498DB; /* Color principal */
+    height: 60vh;  /* Establecer la altura en píxeles */
+  }
+  
+  .carousel-control-prev-icon, .carousel-control-next-icon {
+    
+    margin: auto 0; /* Centrado vertical */
+    filter: invert(2); /* Cambiar el color a blanco, o puedes añadir tus propias reglas de color aquí */
+  }
+  
+  .carousel-control-prev:hover, .carousel-control-next:hover {
+    background-color: var(--secondary-color) /* Color de resalto */
+  }
+
+.carousel-indicators {
+    
+    bottom: 10px;
+    z-index: 15;          
+    display: flex;        
+    justify-content: center; 
+    list-style: none;     
+    
+}
+
+.carousel-indicators li {
+    box-sizing: content-box;  /* Para que el padding no afecte al tamaño total del elemento */
+    width: 10px;              /* Ancho del indicador */
+    height: 10px;             /* Altura del indicador */
+    cursor: pointer;          /* Muestra un cursor de mano al pasar sobre un indicador */
+    background-color: var(--primary-color);   /* Color de fondo del indicador */
+    border-radius: 50%;       /* Hace que el indicador sea redondo */
+    margin: 0 20px;            /* Espacio entre indicadores */
+    transition: background-color 0.6s, width 0.6s; /* Transiciones suaves al cambiar el tamaño y el color de fondo */
+}
+.carousel-indicators li:hover {
+    background-color: #333;  /* Nuevo color de fondo cuando el mouse pasa por encima */
+    width: 12px;
+                   
+}
+
+
+/* Cambia el aspecto del indicador activo */
+.carousel-indicators .active {
+    background-color: var(--secondary-color);
+}
+.custom-carousel-container {
+    background: radial-gradient(circle, #34a2eb, #00bcd4); /* Gradiente radial de Azul Profundo a Cian Tecnológico */
+    
+    display: flex;
+    margin-top: 50px;
+}
+
+.carousel-inner img {
+    width: 100%;
+    height: auto;
+}
+
+.carousel-caption {
+    background-color: rgba(0,0,0,0.5);
+    padding: 8px;
+    font-size: 1em;
+}
+
+/* Estilos para la sección del equipo */
+.custom-team-section {
+    background-color: #333;
+    padding: 50px 0;
+    color: var(--secondary-color);
+}
+
+.custom-heading {
+    text-align: center;
+    color: var(--secondary-color);
+    font-size: 2.5em;
+    margin-bottom: 20px;
+}
+
+.custom-img {
+    max-width: 200px;
+    border-radius: 25%;
+    margin-bottom: 15px;
+}
+
+.custom-member {
+    text-align: center;
+    margin-bottom: 30px;
+}
+
+
+
+.custom-btn.gray-btn:hover {
+    background-color: #333;
+}
+
+.custom-btn.blue-btn:hover {
+    background-color: #333;
+}
+
+.custom-btn.green-btn:hover {
+    background-color: #333;
+}
+
+.blue-member h4, .blue-member .custom-btn {
+    background-color:var(--primary-color);
+    color: white;
+}
+
+.green-member h4, .green-member .custom-btn {
+    background-color: var(--secondary-color);
+    color: white;
+}
+
+.gray-member h4, .gray-member .custom-btn {
+    background-color: var(--tertiary-color);
+    color: white;
+}
+
+
+/* ... */  /* Agregar clases similares para miembros azules y morados */
+
+
+.custom-shadow {
+    box-shadow: 0 4px 8px rgba(11, 110, 49, 0.5);
+}
+
+.modal-fullscreen-xxl-down {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+}
+
+.modal-fullscreen-xxl-down .modal-dialog {
+    margin: 0;
+    max-width: 100%;
+}
+
+.campaign-cover {
+    width: 100%;
+    max-width: 600px;
+    height: auto;
+    display: block;
+    margin: 0 auto;
+}
+
+/* Estilos Generales */
+
+/* Tarjetas */
+.card.custom-shadow {
+    border-radius: 10px;
+    box-shadow: 0 4px 6px var(--primary-color); /* Sombra con el color primario */
+    overflow: hidden;
+    transition: transform 0.3s, box-shadow 0.3s;
+    background-color: #ffffff; /* Fondo blanco para contraste con colores oscuros */
+}
+
+.card.custom-shadow:hover {
+    transform: scale(1.02);
+    box-shadow: 0 6px 8px var(--secondary-color); /* Sombra con el color secundario al pasar el mouse */
+}
+
+.card-img-top {
+    width: 100%;
+    height: 200px;
+    object-fit: cover;
+}
+
+
+.card-body h4{
+    color: var(--secondary-color)
+}
+.card-body h5, .card-body h6 {
+    color: var(--primary-color); /* Color principal */
+    margin-top: 15px;
+}
+
+/* Etiquetas (Badges) */
+
+.badge {
+    margin: 4px 2px;
+    font-size: 0.85rem;
+    color: #ffffff;
+}
+
+.badge.custom-danger {
+    background-color: #e74c3c; /* Rojo para alertas */
+}
+
+.badge.custom-warning {
+    background-color: #f39c12; /* Color de advertencia */
+}
+
+.badge.custom-success {
+    background-color: var(--secondary-color); /* Adaptamos al color secundario de tu paleta */
+}
+
+/* Filtro */
+.form-select {
+    width: 100%;
+    max-width: 300px;
+    display: block;
+    margin: 0 auto 30px;
+    border-color: var(--primary-color); /* Color principal */
+    
+}
+.filtro {
+    font-size: 11px; /* Cambia el tamaño según tus necesidades */
+}
+
+/* Cambiar el tamaño de texto dentro del <select> */
+.filtro_selector {
+    font-size: 11px; /* Cambia el tamaño según tus necesidades */
+}
+/* Botones */
+
+
+
+.btn.custom-btn {
+    background-color: var(--primary-color);  /* Color primario de tu paleta */
+    color: #FFFFFF; /* Color del texto del botón para contrastar con el fondo */
+    border: none;
+    transition: background-color 0.3s;
+}
+
+.btn.custom-btn-detalles {
+    background-color: var(--primary-color);  /* Color primario de tu paleta */
+    color: #FFFFFF; /* Color del texto del botón para contrastar con el fondo */
+    border: none;
+    transition: background-color 0.3s;
+    font-size: 11px
+}
+.btn.custom-btn-detalles:hover, .btn.custom-btn:focus {
+    background-color: var(--secondary-color); /* Color secundario de tu paleta */
+    color: #FFFFFF;
+    text-decoration: none;
+}
+
+.btn.custom-btn:hover, .btn.custom-btn:focus {
+    background-color: var(--secondary-color); /* Color secundario de tu paleta */
+    color: #FFFFFF;
+    text-decoration: none;
+}
+
+.btn.custom-btn:active {
+    background-color: var(--tertiary-color); /* Color terciario para el efecto activo */
+    color: #FFFFFF;
+}
+
+/* Tu CSS existente */
+.start-progress {
+    padding-bottom: 15px;
+    text-align: center;
+}
+.start-progress__bars__item {
+    
+    top: 1;
+    height: 5px;
+}
+
+.start-progress__bars__item:first-child {
+    height: 5px;
+    background-color: rgba(17,17,17,0.1);
+}
+
+
+
+/* Nuevas clases personalizadas para los colores */
+
+.start-progress__bars__item.custom-danger {
+    background-color:   var(--custom-danger); 
+   
+}
+
+.start-progress__bars__item.custom-warning {
+    background-color:   var(--custom-warning);
+}
+
+.start-progress__bars__item.custom-success {
+    background-color:   var(--secondary-color);
+}
+
+/* Estilo para el valor del progreso */
+
+
+.alert-warning {
+    background-color: var(--primary-color);
+    color: white;
+}
+
+.alert-danger {
+    background-color: var(--secondary-color);
+    color: white;
+}
+
+/* Usar las variables de colores */
+.alert-warning {
+    background-color: var(--primary-color);
+    color: white;
+}
+
+.alert-danger {
+    background-color: var(--secondary-color);
+    color: white;
+}
+
+.table-hover thead th {
+    background-color: var(--tertiary-color);
+    color: black;
+}
+
+.text-align-center {
+    text-align: center;
+}
+
+.text-align-left {
+    text-align: left;
+}
+
+.text-white {
+    color: white;
+}
+
+.table-custom {
+    border-collapse: collapse;
+    width: 100%;
+    border: 2px solid var(--tertiary-color);
+    margin-top: 5px;
+    padding-bottom: 5px;
+    margin: 20px auto;
+    
+}
+
+.table-custom thead {
+    background-color: var(--primary-color);
+    color: white;
+}
+
+.table-custom th,
+.table-custom td {
+    padding: 15px;
+    text-align: left;
+    border-bottom: 1px solid var(--tertiary-color);
+}
+
+.table-custom tbody tr:hover {
+    background-color: var(--secondary-color);
+    color: var(--secondary-color);
+}
+
+.table-custom tbody tr:nth-child(even) {
+    background-color: var(--tertiary-color);
+}
+
+.table-custom tbody tr:nth-child(odd) {
+    background-color: white;
+}
+
+/* Añadir a tu archivo CSS existente */
+
+.campaign-cover {
+    max-width: 35%;
+    height: auto;
+    border-radius: 15px;
+}
+
+.detail-badges span {
+    margin: 0 5px;
+}
+
+.comment-section {
+    background-color: var(--tertiary-color);
+    padding: 20px;
+    border-radius: 15px;
+}
+
+.custom-badge {
+    padding: 10px 20px;
+    border-radius: 50px;
+    
+    color: var(--primary-color);  
+    margin: 5px;
+    display: inline-block;
+  }
+
+  .custom-badge1 {
+    padding: 10px 20px;
+    border-radius: 50px;
+    
+    color: var(--secondary-color); /* Color de texto */
+    margin: 5px;
+    display: inline-block;
+  }
+  
+  .custom-badge2 {
+    padding: 10px 20px;
+    border-radius: 50px;
+    
+    color: white; /* Color de texto */
+    margin: 5px;
+    display: inline-block;
+  }
+
+  .custom-icon {
+    margin-right: 5px;
+    color: #2c3e50; /* Color secundario para el ícono */
+    font-size: 24px; /* Ajusta el tamaño según tus necesidades */
+}
+
+.custom-icon2 {
+    margin-right: 5px;
+    color: #f9f9fa; /* Color secundario para el ícono */
+    font-size: 24px; /* Ajusta el tamaño según tus necesidades */
+}
+
+#campaignTimer {
+    text-align: center;
+    margin-top: 10px;
+    margin-bottom: 10px;
+}
+
+/* Estilo para los mensajes de alerta del temporizador de la campaña */
+#campaignTimer h5.alert-success, 
+#campaignTimer h5.alert-danger {
+    padding: 10px;
+    border-radius: 4px;
+    color: white;
+}
+
+/* Estilo específico para el mensaje de éxito */
+#campaignTimer h5.alert-success {
+    background-color: var(--secondary-color); /* color de fondo verde para 'Quedan ... días' */
+}
+
+/* Estilo específico para el mensaje de error */
+#campaignTimer h5.alert-danger {
+    background-color: var(--custom-danger); /* color de fondo rojo para 'Esta campaña ya ha terminado' */
+}
+
+/* Estilo para los span dentro de los mensajes de alerta */
+#campaignTimer span {
+    font-weight: bold;
+}
+
+.comment-section {
+    font-family: 'Arial', sans-serif;
+}
+
+.comment-cards {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+}
+
+.comment-card {
+    background-color: #ffffff;
+    border: 1px solid #ccc;
+    padding: 16px;
+    border-radius: 8px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.comment-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 8px;
+}
+
+.comment-author {
+    font-weight: bold;
+    color: #333;
+}
+
+.comment-timestamp {
+    font-size: 0.8em;
+    color: #888;
+}
+
+.comment-body {
+    color: #555;
+}
+
+.no-comments {
+    text-align: center;
+    padding: 16px;
+    color: #777;
+    font-style: italic;
+}
+
+
+#features {
+    background-color: #FFFFFF;
+    padding: 50px 0;
+  }
+  
+  .feature-item {
+    display: flex;
+    align-items: center;
+    margin-bottom: 50px;
+  }
+  
+  .feature-item.reverse {
+    flex-direction: row-reverse;
+  }
+  
+  .feature-icon {
+    flex: 1;
+    text-align: center;
+  }
+  
+  .feature-icon img {
+    max-width: 100px;
+  }
+  
+  .feature-description {
+    flex: 2;
+    padding: 20px;
+  }
+  
+  .cta {
+    text-align: center;
+    margin-top: 30px;
+  }
+  
+  /* Estilos para el CTA */
+.cta {
+    margin-top: 30px;
+  }
+
+  .cta p {
+    font-weight: bold;  /* Negritas */
+    color: var(--primary-color)
+  }
+  
+  .cta-link {
+    color: #ffffff;
+    background-color: var(--secondary-color); /* O el color que quieras de tu paleta */
+    padding: 10px 20px;
+    border-radius: 3px;
+    text-decoration: none;
+  }
+  
+  h1.text-center {
+    font-weight: bold;  /* Negritas */
+    color: var(--primary-color);  /* Cambia este valor al color específico de tu paleta */
+  }
+  
+  /* Estilo para los encabezados */
+h1.text-center,
+h2.subtitle {
+  font-weight: bold;
+  color: #34a2eb; /* Azul Profundo */
+  margin-bottom: 20px;
+}
+
+h2.subtitle {
+  font-size: 1.2em;
+  color: #7f8c8d; /* Gris Suave */
+}
+
+/* Estilos para la cuadrícula de proyectos */
+.featured-projects {
+  background-color: #ecf0f1; /* Fondo ligero para un aspecto tecnológico */
+}
+
+.grid {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px;
+  justify-content: center;
+}
+
+.project-card {
+  flex-basis: calc(33.333% - 20px);
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  padding: 20px;
+  text-align: center;
+}
+
+.project-card img {
+  max-width: 100%;
+  height: auto;
+  margin-bottom: 20px;
+}
+
+.project-card h3 {
+  font-weight: bold;
+  color: #34a2eb; /* Azul Profundo */
+  margin-bottom: 10px;
+}
+
+.project-card p {
+  color: #7f8c8d; /* Gris Suave */
+}
+
+/* Estilos para el botón de acción */
+.btn-action {
+  display: inline-block;
+  background-color: #00bcd4; /* Cian Tecnológico */
+  color: white;
+  padding: 12px 24px;
+  border-radius: 4px;
+  text-decoration: none;
+  font-weight: bold;
+}
+
+/* Para resaltar el botón al pasar el ratón */
+.btn-action:hover {
+  background-color: #008c9e;
+  transition: background-color 0.3s ease-in-out;
+}
+
+/* Estilo general para la sección */
+.about-section {
+    background-color: #ffffff;  /* Fondo blanco para un diseño minimalista */
+    padding: 40px 0;
+  }
+  
+  /* Estilos para los encabezados */
+  .text-center {
+    font-weight: bold;
+    color: #34a2eb;  /* Azul Profundo */
+    margin-bottom: 20px;
+  }
+  
+  .subtitle {
+    font-size: 1.2em;
+    color: #7f8c8d;  /* Gris Suave */
+  }
+  
+  /* Estilos para el contenido de texto */
+  .text-block {
+    margin-bottom: 30px;
+  }
+  
+  .text-block h3 {
+    font-size: 1.2em;
+    font-weight: bold;
+    margin-bottom: 10px;
+    color: var(--secondary-color);  /* Azul Profundo */
+  }
+  
+  .text-block p {
+    font-size: 1em;
+    line-height: 1.6;
+    color: #7f8c8d;  /* Gris Suave */
+  }
+  
+  /* Estilos para el botón de acción */
+  .btn-action {
+    display: inline-block;
+    background-color: #00bcd4;  /* Cian Tecnológico */
+    color: white;
+    padding: 12px 24px;
+    border-radius: 4px;
+    text-decoration: none;
+    font-weight: bold;
+  }
+  
+  .btn-action:hover {
+    background-color: #008c9e;
+    transition: background-color 0.3s ease-in-out;
+  }
+  
+  /* Estilo para las imágenes (si es necesario) */
+  .col {
+    position: relative;
+  }
+  
+  .col img {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    max-width: 100%;
+    height: auto;
+    border-radius: 10px;  /* Redondea las esquinas */
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.5);
+  }
+  
+  /* Alinear al centro */
+  .text-center {
+    text-align: center;
+  }
+
+  /* Contenedor del Hero */
+
+  /* Contenedor del Hero */
+.cta-hero {
+    background: radial-gradient(circle, #34a2eb, #00bcd4); /* Gradiente radial de Azul Profundo a Cian Tecnológico */
+    height: 10vh; /* Ocupar toda la altura de la ventana */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+    color: #ffffff; /* Texto en blanco para contrastar con el fondo */
+  }
+  
+  /* Contenido del Hero */
+  .cta-content {
+    text-align: center;
+  }
+  
+  /* Título del Hero */
+  .cta-content h1 {
+    font-size: 2.5em; /* Tamaño grande de la fuente */
+    margin-bottom: 20px; /* Espacio por debajo del título */
+  }
+  
+  /* Botón de acción del Hero */
+  .cta-button {
+    background-color: var(--primary-color); /* Gris Suave para contrastar con el fondo */
+    color: #ffffff; /* Texto en blanco */
+    padding: 15px 30px; /* Espaciado interno para hacer el botón más grande */
+    border-radius: 30px; /* Bordes redondeados */
+    font-size: 0.8em; /* Tamaño de fuente más grande para que sea fácil de leer */
+    text-decoration: none; /* Quitar el subrayado del enlace */
+    transition: background-color 0.3s ease-in-out; /* Transición suave para el cambio de color de fondo */
+  }
+  
+  /* Hover del botón */
+  .cta-button:hover {
+    background-color: var(--secondary-color); /* Un tono de gris un poco más oscuro para el estado hover */
+  }
+  
+  /*Team---*/
+
+.container .container {
+    background-color: white;
+    text-align: center;
+    border-radius: 20px;
+    box-shadow: 0 20px 40px rgba(0, 0, 0, .5);
+    margin-bottom: 50px;
+    margin-top: 50px;
+    padding: 0.5px;
+}
+.container  {
+    background-color: white;
+    text-align: center;
+    border-radius: 20px;
+    box-shadow: 0 20px 40px rgba(0, 0, 0, .5);
+    margin-bottom: 50px;
+    margin-top: 50px;
+    padding: 0.5px;
+}
+
+
+.py-cards_mother {
+    margin-bottom: 50px;
+    margin-top: 50px
+}
+
+#team {
+    padding: 60px 0;
+    text-align: center;
+    background-color: #d1d1d1;
+    color: #145889;
+    font-size: 0.8em;
+}
+#team h2 {
+    position: relative;
+    padding: 0px 0px 15px;
+}
+#team p {
+    font-size: 15px;
+    font-style: italic;
+    padding: 0px;
+    margin: 25px 0px 40px;
+}
+#team h2::after {
+    content: '';
+    border-bottom: 2px solid #fff;
+    position: absolute;
+    bottom: 0px;
+    right: 0px;
+    left: 0px;
+    width: 90px;
+    margin: 0 auto;
+    display: block;
+}
+#team .member {
+    margin-bottom: 20px;
+    position: relative;
+    overflow: hidden;
+    background-color: #ffffff;
+    padding: 10px;
+    border-radius: 15px 0px 15px 0px;
+    box-shadow: 0px 1px 6px 0px rgba(0, 0, 0, 0.4);
+}
+#team .member .member-info {
+    display: block;
+    position: absolute;
+    bottom: 0px;
+    left: -200px;
+    transition: 0.4s;
+    padding: 15px 0;
+    background: rgba(0, 0, 0, 0.4);
+}
+#team .member:hover .member-info {
+    left: 0px;
+    right: 0px;
+}
+#team .member h4 {
+    font-weight: 700;
+    margin-bottom: 2px;
+    font-size: 18px;
+    color: #fff;
+}
+#team .member span {
+    font-style: italic;
+    display: block;
+    font-size: 14px;
+    color: white;
+}
+#team .member .social-links {
+    margin-top: 15px;
+}
+#team .member .social-links a {
+    transition: none;
+    color: #fff;
+}
+#team .member .social-links a:hover {
+    color: var(--primary-color);
+}
+#team .member .social-links i {
+    font-size: 18px;
+    margin: 0 2px;
+}
+
+.member-img img {
+    max-width: 300px; /* ajusta este valor según tus necesidades */
+    margin: auto; /* centra la imagen */
+    display: block; /* asegura que la imagen sea un bloque para permitir centrarla */
+}
+
+/* Centrar un solo miembro en el contenedor */
+.team_container .row {
+    display: flex; /* habilita flexbox */
+    justify-content: center; /* centra los elementos horizontalmente */
+    flex-wrap: wrap; /* permite que los elementos se ajusten en múltiples líneas */
+}
+
+.card {
+    display: flex;
+    justify-content: center;  /* Centrado horizontal */
+    align-items: center;      /* Centrado vertical */
+}
+
+.image-wrapper {
+    position: relative;
+    width: 100px;
+    height: 100px;
+  }
+  
+  .card-img-top-s {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    z-index: 1;
+  }
+  
+  .image-wrapper::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    z-index: 0;
+    margin: -2px; /* Controla el grosor del borde */
+    border-radius: inherit;
+  
+    background: linear-gradient(to bottom, var(--secondary-color), var(--primary-color));
+  }
+  
+  .col_card {
+    margin-bottom: 20px;  /* o puedes usar: 1rem para utilizar unidades relativas */
+}
+
+
+.mb-3-card, .mb-2-card, .mt-2-card {
+    margin-bottom: 15px;  /* Ajusta como necesites */
+    color: rgb(255, 255, 255)
+}
+
+.text-center-card {
+    text-align: center;
+}
+
+
+/* Para centrar las tarjetas cuando hay solo una en el contenedor */
+.cards_mother {
+    margin: 40px;  /* Agrega un margen externo al contenedor */
+    padding: 20px; /* Agrega un relleno interno al contenedor */
+    box-sizing: border-box;
+}
+
+.filtro {
+    font-size: 18px;
+    margin: 2 2px;
+    color: #fff;
+}
+/* CSS para hacer la tarjeta más pequeña */
+/* CSS para hacer la tarjeta más pequeña verticalmente */
+.small-card {
+    width: 260px;
+    height: auto;  /* o puedes establecer una altura específica como 400px */
+    margin: auto;
+}
+
+.small-card .card-body {
+    padding: 10px;  /* reducir el padding para disminuir la altura */
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.small-card img.card-img-top-s {
+    max-width: 100%;
+    max-height: 100px;  /* reducir la altura máxima de la imagen */
+}
+
+.small-card h4 {
+    font-size: 14px;
+    margin: 5px 0;  /* reducir márgenes para disminuir la altura */
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    color: var(--primary-color);
+}
+
+.small-card h6 {
+    font-size: 12px;
+    margin: 5px 0;  /* reducir márgenes para disminuir la altura */
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    color: var(--secondary-color);
+}
+.small-card .mb-3-card, .small-card .mb-2-card {
+    margin-bottom: 5px !important; /* reducir el margen inferior para disminuir la altura */
+}
+
+.card.custom-shadow {
+    width: auto;  /* Ancho específico de la tarjeta */
+    box-sizing: border-box;
+}
+
+.badge_card {
+    font-size: 10px;
+    margin: 5px 0;  /* reducir márgenes para disminuir la altura */
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    color: var(--primary-color);
+}
+.my-image {
+    width: 644px;
+    height: 800px;
+}

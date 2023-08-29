@@ -1,0 +1,56 @@
+{% extends "index.html" %}
+
+{% load static %}
+
+{% block title %}
+Top Contribuyentes
+{% endblock %}
+
+{% block content %}
+<div class="container2">
+<div class="container">
+    <div class="container ">
+        
+        <!-- Mostrar al contribuidor número 1 en donaciones -->
+        {% if top_contributor %}
+            <div class="alert alert-warning text-align-center" role="alert">
+                <h3><i class="bi bi-trophy-fill"></i> Contribuidor # 1: {{ top_donor.user__first_name }} {{ top_donor.user__last_name }}</h3>
+                <p>Número total de contribuciones: {{ top_donor.total_contributions }}</p>
+                <p>Total donado: ${{ top_donor.total_donated }}</p>
+            </div>
+        {% else %}
+            <div class="alert alert-danger text-align-center" role="alert">
+                No se encontraron contribuciones.
+            </div>
+        {% endif %}
+        
+        {% for campaign in lista_campaings %}
+            <h5 class="text-align-center">Startup: {{ campaign.name }}</h5> 
+            {% if campaign.contribution_set.all %}
+                <table class="table-custom">
+                    <thead>
+                        <tr>
+                            <th>Nombre del Contribuidor</th>
+                            <th>Cantidad Contribuida</th>
+                            <th>Fecha de Contribución</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for contribution in campaign.contribution_set.all|dictsortreversed:"amount" %}
+                        <tr>
+                            <td>{{ contribution.user.first_name }} {{ contribution.user.last_name }}</td>
+                            <td>${{ contribution.amount }}</td>
+                            <td>{{ contribution.date }}</td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            {% else %}
+                <div class="alert alert-info text-align-center" role="alert">
+                    <i class="bi bi-emoji-frown"></i> Esta campaña no tiene donaciones. <i class="bi bi-emoji-frown"></i> 
+                </div>
+            {% endif %}
+        {% endfor %}
+    </div>
+</div>
+{% endblock %}

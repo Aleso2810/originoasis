@@ -1,0 +1,20 @@
+[tool.poetry]
+name = "proyecto-final"
+version = "0.1.0"
+description = ""
+authors = ["Alejandro Soria"]
+license = "MIT"
+readme = "README.md"
+packages = [{include = "proyecto_final"}]
+
+[tool.poetry.dependencies]
+python = "^3.10"
+django = "^4.2.4"
+psycopg2-binary = "^2.9.7"
+django-environ = "^0.10.0"
+django-extensions = "^3.2.3"
+
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"

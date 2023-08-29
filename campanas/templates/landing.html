@@ -1,0 +1,223 @@
+{% extends "index.html" %}
+{% load static %}
+{%block title%}Landing Page{%endblock%}     
+
+{%block content%}
+    
+<div id="miCarrusel" class="carousel slide carousel-container" data-ride="carousel">
+    <!-- Indicadores -->
+    
+    <ul class="carousel-indicators">
+        <li data-target="#miCarrusel" data-slide-to="0" class="active"></li>
+        <li data-target="#miCarrusel" data-slide-to="1" ></li>
+        <li data-target="#miCarrusel" data-slide-to="2" ></li>
+    </ul>
+    
+    <!-- Imágenes -->
+    <div class="carousel-inner">
+        <div class="carousel-item active">
+            <img src="{% static 'images/image_s1.png' %}" alt="Imagen 1" class="responsive-img">
+            <div class="carousel-caption">
+                <p>Tu contribución podría ser el catalizador que una idea necesita para cambiar el mundo.</p>
+                <a href="{{ campaings_url }}" class="cta-button">Donar Ahora</a>
+            </div>   
+        </div>
+        <div class="carousel-item ">
+          <img src="{% static 'images/image_s2.png' %}" alt="Imagen 2" class="responsive-img">
+          <div class="carousel-caption">
+              <p>Juntos, somos más fuertes. Sé parte de una comunidad que valora la innovación y la colaboración.</p>
+              <a href="{{ beneficiarys_url }}" class="cta-button">Únete Ahora</a>
+          </div>   
+      </div>
+      <div class="carousel-item ">
+        <img src="{% static 'images/image_s3.png' %}" alt="Imagen 3" class="responsive-img">
+        <div class="carousel-caption">
+            <p>Tu apoyo puede llevar soluciones sostenibles y tecnologías transformadoras a comunidades de todo el mundo.</p>
+            <a href="{{ campaings_url }}" class="cta-button">Sé un Agente de Cambio</a>
+        </div>   
+    </div>   
+        </div>
+    </div>
+    
+    <!-- Controles izquierda y derecha -->
+    <a class="carousel-control-prev" href="#miCarrusel" role="button" data-slide="prev">
+        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+        <span class="sr-only"></span>
+    </a>
+    <a class="carousel-control-next" href="#miCarrusel" role="button" data-slide="next">
+        <span class="carousel-control-next-icon" aria-hidden="true"></span>
+        <span class="sr-only"></span>
+    </a>
+</div>
+
+<section id="features">
+    <div class="container">
+      <h1 class="text-center " >Cómo Funciona</h1>
+  
+      <!-- Paso 1 -->
+      <div class="feature-item">
+        <div class="feature-icon">
+          <img src="{% static 'icons/brujula.png' %}" alt="Icono de brújula">
+        </div>
+        <div class="feature-description">
+          <h3>Paso 1: Encuentra Tu Oasis</h3>
+          <p>Descubre el potencial de tu idea en el vasto mundo de la tecnología.</p>
+        </div>
+      </div>
+  
+      <!-- Paso 2 -->
+      <div class="feature-item">
+        <div class="feature-description">
+          <h3>Paso 2: Planta Tu Semilla</h3>
+          <p>Crea tu proyecto de forma sencilla con nuestra plataforma amigable.</p>
+        </div>
+        <div class="feature-icon">
+          <img src="{% static 'icons/semilla.png' %}" alt="Icono de semilla">
+        </div>
+      </div>
+  
+      <div class="feature-item ">
+        <div class="feature-icon">
+          <img src="{% static 'icons/regadera.png' %}" alt="Icono de brújula">
+        </div>
+        <div class="feature-description">
+            <h3>Paso 3: Riega y Nutre</h3>
+                <p>Ahora que tu proyecto está en vivo, es hora de nutrirlo.</p>
+            </div>
+      </div>
+
+      <div class="feature-item reverse">
+        <div class="feature-icon">
+          <img src="{% static 'icons/arbol-de-frutas.png' %}" alt="Icono de brújula">
+        </div>
+        <div class="feature-description">
+            <h3>Paso 4: Cosecha Los Frutos</h3>
+            <p>Una vez alcanzado tu objetivo financiero, es hora de hacer realidad tu visión.</p>
+        </div>
+      </div>
+
+    </div>
+  
+    <!-- CTA -->
+    <div class="cta text-center">
+      <div class="text-block">
+        <h3>¿Listo para ver tu idea florecer? </h3>
+        <a href="{{ campaings_url }}" class="cta-button">Empieza Ahora</a>
+      </div>
+      
+  </section>
+  
+  <section class="featured-projects">
+    <h1 class="text-center">Proyectos Destacados</h1>
+    <h2 class="text-center subtitle">Descubre las ideas tecnológicas más emocionantes que están tomando forma en OriginOasis.</h2>
+  
+    <div class="container grid">
+      {% for campaign in lista_campaings %}
+        <div class="project-card">
+          <img src="{{ campaign.photo.url }}" alt="{{ campaign.name }}">
+          <h3>{{ campaign.name }}</h3>
+          <p>{{ campaign.description|slice:":100" }}{% if campaign.description|length > 100 %}...{% endif %}</p>
+        </div>
+      {% endfor %}
+  
+      <!-- Botón de Acción -->
+      
+    </div>
+    <div class="text-center">
+      <a href="{{ campaings_url }}" class="cta-button">Ver todos lo Proyectos</a>
+    </div>
+  </section>
+  
+  </section>
+
+
+  <section class="about-section">
+    <h1 class="text-center">Acerca de OriginOasis</h1>
+    <h2 class="text-center subtitle">El Ecosistema donde las Ideas Tecnológicas Florecen</h2>
+  
+    <div class="container">
+      <div class="row">
+        <!-- Columna de Texto -->
+        <div class="col">
+          <!-- Introducción -->
+          <div class="text-block">
+            <h3>Introducción</h3>
+            <p>"OriginOasis no es solo una plataforma de crowdfunding; es un ecosistema. Nacimos con una misión: ser el terreno fértil donde las ideas tecnológicas pueden arraigar, crecer y, finalmente, florecer. Fundada en [Año de Fundación], nos hemos dedicado a cultivar un entorno en el que innovadores, soñadores y constructores puedan venir a encontrar los recursos, el apoyo y la comunidad que necesitan."</p>
+            <!-- (resto del contenido) -->
+          </div>
+  
+          <!-- Nuestra Misión -->
+          <div class="text-block">
+            <h3>Nuestra Misión</h3>
+            <p>"Nuestra misión es simple pero poderosa: acelerar la innovación tecnológica al conectar ideas brillantes con las personas y los recursos que pueden hacerlas realidad. En OriginOasis, queremos ser más que un punto medio; aspiramos a ser el inicio y el sustento de tu viaje innovador."</p>
+            <!-- (resto del contenido) -->
+          </div>
+  
+          <!-- Nuestros Valores -->
+          <div class="text-block">
+            <h3>Nuestros Valores</h3>
+            <p>Innovación Sostenible: Nos enfocamos en proyectos que no solo son innovadores sino también sostenibles y éticos.</p>
+            <p>Comunidad: Creemos en el poder de la comunidad para elevar una idea desde su fase inicial hasta su total realización.</p>
+            <p>Transparencia: La honestidad y la claridad son piedras angulares en todos nuestros procesos y transacciones.</p>
+            <!-- (resto del contenido) -->
+          </div>
+  
+          <!-- Únete a Nosotros -->
+          <div class="text-block">
+            <h3>Únete a Nosotros</h3>
+            <p>"Si tienes una idea que puede cambiar el mundo o simplemente hacerlo un poco mejor, te invitamos a unirte a nuestro ecosistema en expansión. Porque en OriginOasis, cada idea cuenta, y cada proyecto es un paso hacia un futuro más brillante."</p>
+          </div>
+  
+          <!-- Botón de Acción -->
+          <div class="text-center">
+            <a href="{{ signup_url }}" class="cta-button">Únete a Nuestra Comunidad</a>
+          </div>
+        </div>
+  
+        <!-- Columna de Imagen -->
+        <div class="col">
+          <img src="{% static 'images/OOAbout.png' %}" alt="Acerca de OriginOasis">
+        </div>
+      </div>
+    </div>
+  </section>
+  
+
+
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.10.2/css/all.css">
+
+    <section id="team">
+        <div class="team_container">
+          <h1 class="text-center " >Nuestro Equipo de Trabajo</h1>
+             <div class="row">
+                <div class="col-lg-6 col-md-6">
+                    <div class="member">
+                      <div class="member-img">
+                        <img src="{% static 'images/alejo.jpg' %}" class="img-fluid" alt="">
+                      </div>
+                        <div class="member-info">
+                            <h4>Alejandro Soria</h4>
+                            <span>Web Designer</span>
+                            <div class="social-links">
+                                <a href="https://www.facebook.com/profile.php?id=100009814057778"><i class="fab fa-facebook-f"></i></a>
+                                
+                                <a href="https://www.linkedin.com/in/alejandro-soria-7a2203287/"><i class="fab fa-linkedin-in"></i></a>
+                                
+                                <a href="https://www.instagram.com/pasm.28.10/"><i class="fab fa-instagram"></i></a>
+
+                                <a href="https://wa.me/593986222290"><i class="fab fa-whatsapp"></i></a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+              </div>
+          </div>
+    </section>
+              
+    <section class="cta-hero">
+      <div class="cta-content">
+        <h1>¿Listo para Transformar tu Idea en Realidad?</h1>
+        <a href="https://wa.me/593986222290" class="cta-button">Empieza Ahora</a>
+      </div>
+    </section>
+{% endblock %} 

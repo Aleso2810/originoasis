@@ -1,0 +1,16 @@
+<!-- campaign_detail.html -->
+
+{% extends "index.html" %}
+{% block content %}
+{% load static %}
+<div class="container">
+    <div class="cta text-center">
+        <h1>Gracias {{ message }}</h1>
+        <p>Vulve a inicar sesión para ver las actualizaciones en el sitio</p>
+        <a href="{{ login_url }}" class="cta-button">Iniciar Sesión</a>
+        <div class="container">
+        <img class="my-image" src="{% static 'images/OOAbout.png' %}" alt="Acerca de OriginOasis">
+    </div>
+    </div>
+</div>
+{% endblock %}

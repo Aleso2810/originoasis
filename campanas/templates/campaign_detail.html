@@ -1,0 +1,255 @@
+{% extends "index.html" %}
+{% load custom_filters %}
+
+{% block title %}Startup Detail{% endblock %}
+{% block content %}
+<div id="campaignTimer">
+    {% if remaining_days > 0 %}
+        <h5 class="alert-success">Quedan <span id="days">{{ remaining_days }}</span> días, <span id="hours">{{ remaining_hours }}</span> horas, <span id="minutes">{{ remaining_minutes }}</span> minutos y <span id="seconds">{{ remaining_seconds }}</span> segundos para que esta campaña termine.</h5>
+    {% else %}
+        <h5 class="alert-danger">Esta campaña ya ha terminado.</h5>
+    {% endif %}
+</div>
+<div class="container mt-5">
+    <h1 class="text-center">{{ campaign.name }}</h4>
+    <h1 class="text-center ">Categoría: {{ campaign.category }}</h5>
+    <!-- Contador -->
+    
+    <img src="{{ campaign.photo.url }}" alt="{{ campaign.photo.url }}" class="campaign-cover">
+    <h6 class="text-center">{{ campaign.description}}</h6>
+    
+    <div class="mb-3 text-center">
+        <span class="custom-badge"><i class="bi bi-calendar2-check-fill custom-icon"></i> Inicio: {{ campaign.start_date|date:"d/m/Y" }}</span>
+        <span class="custom-badge"><i class="bi bi-calendar2-check-fill custom-icon"></i> Fin: {{ campaign.end_date|date:"d/m/Y" }}</span>
+    </div>
+    <div class="mb-3 text-center">
+        <span class="custom-badge1"><i class="bi bi-person-square custom-icon"></i> Beneficiario: {{ campaign.beneficiary.first_name }} {{ campaign.beneficiary.last_name }}</span>
+    </div>
+
+    <div class="text-center">
+        <div class="text-center mt-2">
+            {% if campaign.percentage_of_target < 10 %}
+                <span class="custom-badge2 bg-danger"><i class="bi bi-heartbreak custom-icon2"></i> Cumplimiento: {{ campaign.percentage_of_target|floatformat:2 }}% </span>
+            {% elif campaign.percentage_of_target >= 10 and campaign.percentage_of_target <= 70 %}
+                <span class="custom-badge2 bg-warning"><i class="bi bi-heart-fill custom-icon2"></i> Cumplimiento: {{ campaign.percentage_of_target|floatformat:2 }}% </span>
+            {% else %}
+                <span class="custom-badge2 bg-success"><i class="bi bi-hearts custom-icon2"></i> Cumplimiento: {{ campaign.percentage_of_target|floatformat:2 }}% </span>
+            {% endif %}
+        </div>
+        {% with percent=campaign.percentage_of_target %}
+            <div class="start-progress">
+                <div class="start-progress__bars">
+                    <div class="start-progress__bars__inner">
+                        <!-- Primera barra (gris) -->
+                        <div class="start-progress__bars__item" style="width: 100%"></div>
+                        
+                        <!-- Segunda barra (coloreada en función del porcentaje) -->
+                        <div class="start-progress__bars__item {% if percent < 10 %} custom-danger {% elif percent <= 70 %} custom-warning {% else %} custom-success {% endif %}" style="width: {{ percent|floatformat:0 }}%;">
+                        
+                        </div>
+                    </div>
+                </div>
+            </div>
+        {% endwith %}
+    </div>
+    
+    <div class="mb-2 text-center">
+        <span class="custom-badge "><i class="bi bi-piggy-bank custom-icon"></i> ${{ campaign.collected_amount }} </span>
+        <span class="custom-badge "><i class="bi bi-cash custom-icon"></i> De: ${{ campaign.target_amount }} </span>
+    </div>
+
+    
+
+    
+    <div class="text-center mt-3">
+        
+        {% if user.is_authenticated %}
+        <div id="paypal-button-container">  
+            <div class="form-container">
+                {{ form.render }}
+            </div>
+        </div>
+        
+        {% else %}
+            <!-- Aquí puedes añadir un mensaje informativo si lo deseas, por ejemplo: -->
+            <p>Debes estar registrado y conectado para hacer una donación.</p>
+        {% endif %}
+    </div>
+    
+    
+
+    
+
+    <!-- Botón para abrir modal de comentarios -->
+    <div class="mt-4">
+        <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#commentModal" {% if not user.is_authenticated or not has_donated %}disabled{% endif %}>
+            Dejar un comentario
+        </button>
+    </div>
+    {% if not user.is_authenticated or not has_donated %}
+    <p class="mt-2 text-danger">Debes estar autenticado y haber realizado una donación para poder comentar.</p>
+    {% endif %}
+    
+    <div class="modal fade" id="commentModal" tabindex="-1" aria-labelledby="commentModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="commentModalLabel">Dejar un Comentario</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <form method="post" action="{% url 'campaings' %}">
+                        {% csrf_token %}
+                        <input type="hidden" name="campaign_id" value="{{ campaign.id }}">
+                        <textarea name="comment_text" rows="3" class="form-control mb-2" {% if not has_donated %}disabled{% endif %}></textarea>
+                        <button type="submit" class="btn btn-primary" {% if not has_donated %}disabled{% endif %}>Comentar</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="text-center mt-3">
+        {% if not user.is_authenticated %}
+            <a href="{% url 'login' %}" class="btn btn-primary">Iniciar sesión</a>
+            <a href="{% url 'signup' %}" class="btn btn-secondary">Registrarse</a>
+        {% endif %}
+    </div>
+    <div class="mt-4">
+        <h5>Lista de contribuidores</h5>
+        <table class="table-custom">
+            <thead>
+                <tr>
+                    <th>Nombre del Contribuidor</th>
+                    <th>Cantidad Contribuida</th>
+                    <th>Fecha de Contribución</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for contribution in campaign.contribution_set.all|dictsortreversed:"amount" %}
+                <tr>
+                    <td>{{ contribution.user.first_name }} {{ contribution.user.last_name }}</td>
+                    <td>${{ contribution.amount|floatformat:2 }}</td>
+                    <td>{{ contribution.date|date:"d/m/Y H:i:s" }}</td>
+
+
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</div>
+<div class="mt-4 comment-section">
+    <h5>Comentarios</h5>
+    <div class="comment-cards">
+        {% for comment in campaign.comment_set.all %}
+        <div class="comment-card">
+            <div class="comment-header">
+                <span class="comment-author">{{ comment.user.first_name }} {{ comment.user.last_name }}</span>
+                <span class="comment-timestamp">{{ comment.date }}</span>
+
+            </div>
+            <div class="comment-body">
+                {{ comment.comment_text }}
+            </div>
+        </div>
+        {% empty %}
+        <div class="no-comments">Aún no hay comentarios para esta campaña.</div>
+        {% endfor %}
+    </div>
+</div>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            function updateCounter() {
+                let days = parseInt(document.getElementById("days").innerText, 10);
+                let hours = parseInt(document.getElementById("hours").innerText, 10);
+                let minutes = parseInt(document.getElementById("minutes").innerText, 10);
+                let seconds = parseInt(document.getElementById("seconds").innerText, 10);
+        
+                if (days === 0 && hours === 0 && minutes === 0 && seconds === 0) {
+                    clearInterval(counterInterval);
+                    let timerDiv = document.getElementById("campaignTimer");
+                    timerDiv.innerHTML = "<h5 class='alert-danger'>Esta campaña ya ha terminado.</h5>";
+                    return;
+                }
+        
+                if (seconds === 0) {
+                    if (minutes === 0) {
+                        if (hours === 0) {
+                            if (days > 0) {
+                                days--;
+                                hours = 23;
+                                minutes = 59;
+                                seconds = 59;
+                            }
+                        } else {
+                            hours--;
+                            minutes = 59;
+                            seconds = 59;
+                        }
+                    } else {
+                        minutes--;
+                        seconds = 59;
+                    }
+                } else {
+                    seconds--;
+                }
+        
+                document.getElementById("days").innerText = days.toString();
+                document.getElementById("hours").innerText = hours.toString().padStart(2, '0');
+                document.getElementById("minutes").innerText = minutes.toString().padStart(2, '0');
+                document.getElementById("seconds").innerText = seconds.toString().padStart(2, '0');
+            }
+        
+            const counterInterval = setInterval(updateCounter, 1000); // Actualizar cada segundo
+        });
+
+        
+    </script>
+    
+    <script>
+        // Escuchamos el evento click del botón de donación con PayPal
+        document.getElementById('paypalDonateBtn').addEventListener('click', function() {
+            let amount = document.getElementById('donationAmount').value;
+            if (amount > 0) {
+                // Crear una solicitud para crear una orden de PayPal
+                fetch(`/campaign/{{ campaign.id }}/create_paypal_order/`, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'X-CSRFToken': '{{ csrf_token }}'
+                    },
+                    body: JSON.stringify({ amount: amount })
+                })
+                .then(response => response.json())
+                .then(data => {
+                    if (data.success) {
+                        // Redirigir al usuario a la URL de aprobación de PayPal
+                        window.location.href = data.approval_url;
+                    } else {
+                        alert('Hubo un error al crear la orden de PayPal. Por favor, inténtelo de nuevo.');
+                    }
+                });
+            } else {
+                alert('Por favor, ingrese una cantidad válida.');
+            }
+        });
+
+    </script>
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            const donationAmountInput = document.getElementById('donationAmount');
+            
+            donationAmountInput.addEventListener('blur', function(e) {
+                const donationAmount = e.target.value;
+                
+                // Actualizar la página con el nuevo parámetro
+                const url = new URL(window.location.href);
+                url.searchParams.set('donationAmount', donationAmount);
+                
+                window.location.href = url;
+            });
+        });
+    </script>
+    
+{% endblock %}

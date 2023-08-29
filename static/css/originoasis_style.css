@@ -1,0 +1,172 @@
+/* originoasis_style.css */
+
+/* Paleta de colores */
+:root {
+    --primary-color: #269AC4;
+    --secondary-color: #6CB965;
+    --tertiary-color: #c3c7ac;
+}
+
+/* Estilo por defecto de la barra de navegación */
+.navbar {
+    display: flex; /* Usa flexbox para el layout */
+    justify-content: space-around; /* Distribuye el espacio alrededor de los elementos */
+    transition: all 0.3s; /* Efecto de transición suave */
+    background: white; /* Fondo transparente inicialmente */
+    height: auto;
+    font-size: 14px !important; /* Establece el tamaño del texto y lo asegura con !important */
+    white-space: nowrap; /* Asegura que el texto no se rompa en múltiples líneas */
+}
+
+.nav-link {
+    flex-grow: 2; /* Asegura que los elementos toman todo el espacio disponible */
+    text-align: center; /* Centra el texto dentro de cada enlace */
+}
+/* Estilo cuando se desplaza */
+.navbar.scrolled {
+    background: rgba(17, 17, 17, 0.85) /* Un color de fondo oscuro, puedes cambiarlo a tu gusto */
+}
+
+/* Estilo para el logo */
+.logo-img {
+    transition: all 0.3s;
+    width: 80px; /* Disminuir el tamaño */
+    height: 72.1206px; /* Asegúrate de mantener la relación de aspecto */
+}
+
+/* Estilo para el logo cuando se desplaza */
+.navbar.scrolled .logo-img {
+    width: 50px; /* Disminuir el tamaño */
+    height: 45.0754px; /* Asegúrate de mantener la relación de aspecto */
+}
+
+
+.logo-img:hover {
+    transition: transform 1s; 
+    transform: rotate(360deg); 
+}
+
+.navbar .container-fluid > div {
+    flex: 1; 
+    display: flex;
+    align-items: left; 
+    justify-content: center; 
+}
+
+body {
+    background: linear-gradient(90deg, #269AC4 0%, #6CB965 100%);
+    padding-top: 80px; 
+}
+
+.others {
+    background: #ffffff;
+    padding-top: 80px; 
+}
+
+.navbar .navbar-brand, .navbar .nav-link {
+    color: var(--primary-color) !important; /* Cambiado para que sea visible y más específico */
+}
+
+.navbar .nav-link:hover {
+    color: var(--secondary-color) !important; /* Añadido !important para asegurar que se aplique */
+}
+
+.navbar .nav-link.active {
+    color: var(--secondary-color) !important;
+    font-weight: bold;
+}
+
+
+.navbar .nav-link.text-white:hover {
+    color: var(--primary-color) !important;
+}
+
+.navbar-brand img {
+    margin-right: 10px;
+}
+
+.navbar .welcome-text {
+    color: var(--primary-color) !important;
+}
+
+.navbar .user-name {
+    color: var(--secondary-color) !important;
+}
+
+.navbar .logout-link {
+    color: var(--tertiary-color) !important;
+}
+
+
+
+.text-align-center {
+    text-align: center;
+}
+.text-extra-small {
+    font-size: 0.5em;
+    color: black;
+    font-weight: bold;
+}
+
+/* Para centrar la imagen */
+.centered-img {
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+/* Para hacer que la imagen gire */
+@keyframes rotate {
+    from {
+        transform: rotate(0deg);
+    }
+    to {
+        transform: rotate(360deg);
+    }
+}
+
+#rotating-logo {
+    animation: rotate 20s infinite linear;
+}
+
+.centered-img-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+body {
+    background-color: #ffffff;  /* Color blanco */
+}
+
+.footer {
+    background-color: #333; /* Color de fondo oscuro */
+    color: #ffffff;  /* Color del texto blanco */
+    color: var(--primary-color) !important;
+}
+
+/* Estilo para el texto del copyright */
+.footer p.text-center {
+    margin-bottom: 0; /* Eliminar el margen inferior */
+    padding: 10px; /* Añadir algo de padding */
+    transition: all 0.3s ease; /* Añadir una transición para suavizar el cambio de tamaño y color */
+}
+
+/* Efecto hover para el texto del copyright */
+.footer p.text-center:hover {
+    font-size: 110%;  /* Aumentar el tamaño de fuente al 110% */
+    color: var(--secondary-color) !important;  /* Cambiar al color primario */
+}
+
+/* Estilo para el logo en el footer */
+.footer .logo-img {
+    width: 50px;  /* Ancho del logo */
+    height: auto;  /* Mantener la proporción */
+}
+
+/* Estilo para el texto en el footer */
+
+
+
+
+
+

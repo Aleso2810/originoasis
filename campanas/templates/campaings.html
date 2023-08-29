@@ -1,0 +1,123 @@
+{% extends "index.html" %}
+{% load static %}
+{% load custom_filters %}
+
+{% block title %}
+    Campañas
+{% endblock %}
+
+{% block content %}
+
+<div class="container_filtr my-3 text-center">
+    <label for="categoryFilter"><h5 class="filtro">Filtrar por Categoría:<h5></label>
+    <select id="categoryFilter" class="form-select">
+        <option class="filtro_selector" value="all">Todas</option>
+        {% for category in categories %}
+        <option class="filtro_selector" value="{{ category.name }}">{{ category.name }}</option>
+        {% endfor %}
+    </select>
+</div>
+
+<div class="py-2">
+    <div class="container">
+        <div class="row cards_mother">
+            {% for campaign in lista_campaings %}
+            <div class="col-lg-3 col-md-4 col-sm-12 col_card">
+                <div class="card custom-shadow small-card">
+                    <div class="image-wrapper">
+                        <img src="{{ campaign.photo.url }}" alt="{{ campaign.name }}" class="card-img-top-s">
+                    </div>
+                    <div class="card-body">
+                        <h4 class="text-center">{{ campaign.name }}</h4>
+                        
+                        <h6 class="text-center">
+                            {{ campaign.description|slice:":30" }}
+                            {% if campaign.description|length > 30 %}...{% endif %}
+                        </h6>
+                        <div class="mb-3-card text-center">
+                            <span class="badge_card rounded-pill "><i class="bi bi-calendar2-check-fill"></i> Inicio: {{ campaign.start_date|date:"d/m/Y" }}</span>
+                            <span class="badge_card rounded-pill "><i class="bi bi-calendar2-check-fill"></i> Fin: {{ campaign.end_date|date:"d/m/Y" }}</span>
+                            <span class="badge_card rounded-pill "><i class="bi bi-person-square"></i> Beneficiario: {{ campaign.beneficiary.first_name }} {{ campaign.beneficiary.last_name }}</span>
+                        </div>
+                        <div class="text-center-card">
+                            <h6 class="text-center"> Cumplimiento </h6>
+                            {% with percent=campaign.percentage_of_target %}
+                                <div class="start-progress">
+                                    <div class="start-progress__bars">
+                                        <div class="start-progress__bars__inner">
+                                            <h6 class="text-center">
+                                                {{ percent|floatformat:2 }}%
+                                            </h6>
+                                            <!-- Primera barra (gris) -->
+                                            <div class="start-progress__bars__item" style="width: 100%"></div>
+                                            
+                                            <!-- Segunda barra (coloreada en función del porcentaje) -->
+                                            <div class="start-progress__bars__item {% if percent < 10 %} custom-danger {% elif percent <= 70 %} custom-warning {% else %} custom-success {% endif %}" style="width: {{ percent|floatformat:0 }}%;">
+                                                
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            {% endwith %}
+                        </div>
+                                               
+                        
+                        <div class="mb-2-card text-center">
+                            <span class="badge_card rounded-pill "><i class="bi bi-piggy-bank"></i> ${{ campaign.collected_amount }}  </span>
+                            <span class="badge_card rounded-pill "><i class="bi bi-cash"></i> - De: ${{ campaign.target_amount }} </span>
+                            <p class="text-extra-small">{{ campaign.category }}</p>
+                        </div>
+                        <div class="mt-2-card d-flex justify-content-center mb-3">
+                            <a href="{% url 'campaign_detail' campaign.id %}" target="_blank" class="btn custom-btn-detalles btn-lg">Más Detalles</a>
+                        </div>
+                        <h6 class="text-center-card d-none">{{ campaign.category }}</h6>
+                        <p class="text-center badge_card countdown" data-end-date="{{ campaign.end_date|date:"Y-m-d" }}"></p>
+                      </div>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+</div>
+
+
+
+
+<script>
+
+    const categoryFilter = document.getElementById('categoryFilter');
+    categoryFilter.addEventListener('change', function() {
+        filterByCategory(this.value);
+    });
+
+    function filterByCategory(categoryName) {
+        const campaigns = document.querySelectorAll('.card.custom-shadow.small-card');
+        campaigns.forEach(campaign => {
+            const categoryElement = campaign.querySelector('p.text-extra-small');  // Cambio aquí
+            const isMatchingCategory = categoryElement && categoryElement.innerText.includes(categoryName);
+            campaign.parentElement.style.display = (categoryName === 'all' || isMatchingCategory) ? 'block' : 'none';
+        });
+    }
+    
+    document.addEventListener('DOMContentLoaded', function() {
+        const countdownElements = document.querySelectorAll('.countdown');
+    
+        countdownElements.forEach(el => {
+            const endDate = moment(el.getAttribute('data-end-date'));
+            const now = moment();
+    
+            const diff = endDate.diff(now, 'days');
+    
+            if (diff >= 0) {
+                el.innerText = `${diff} días restantes`;
+            } else {
+                el.innerText = 'Campaña finalizada';
+            }
+        });
+    });
+    
+    
+</script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.1/moment.min.js"></script>
+
+{% endblock %}

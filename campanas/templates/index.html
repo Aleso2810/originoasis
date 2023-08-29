@@ -1,0 +1,120 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Origin Oasis -  {% block title %}{% endblock %} </title>
+
+     <!-- CSS propio -->
+     <link rel="stylesheet" type="text/css" href="{% static 'css/styles.css' %}">
+     <link rel="stylesheet" type="text/css" href="{% static 'css/originoasis_style.css' %}">
+
+    <!-- CSS de Bootstrap 5.3.0 -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css">
+
+    <!-- Icono -->
+    <link rel="shortcut icon" href="{% static 'images/OOFavicon.png' %}" type="image/png">
+</head>
+<body>    
+    <nav class="navbar navbar-expand-lg fixed-top">
+        <!-- Enlaces a la izquierda del logo -->
+        <div class="container-fluid d-flex justify-content-between">
+            {% url 'campaings' as campaings_url %}
+            {% url 'beneficiarys' as beneficiarys_url %}
+            {% url 'login' as login_url %}
+            {% url 'signup' as signup_url %}
+
+            <!-- Enlaces a la izquierda del logo -->
+            <div>
+                <ul class="navbar-nav">
+                <li class="nav-item">
+                    <a href="{{ campaings_url }}" class="nav-link {% if request.path == campaings_url %}active{% endif %}">
+                        Descubre proyectos
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="{{ beneficiarys_url }}" class="nav-link {% if request.path == beneficiarys_url %}active{% endif %}">
+                        Top Contribuyentes
+                    </a>
+                </li>
+                
+            </ul>
+            </div>    
+        
+            <!-- Logo centrado -->
+            <div>
+                <div>
+                    <a href="{% url 'landing' %}">
+                        <img src="{% static 'images/OOFavicon.png' %}" alt="Logo Origin Oasis" class="logo-img">
+
+                    </a>
+                </div>
+            </div>
+    
+            <!-- Enlaces a la derecha del logo -->
+            
+            <div>
+            <ul class="navbar-nav">
+                {% if request.user.is_authenticated %}
+                    <li class="nav-item d-inline-flex align-items-center">
+                        <span class="nav-link welcome-text">Bienvenido,</span>
+                        <span class="nav-link user-name">{{ request.user.first_name }}</span>
+                        <a href="{% url 'logout' %}" class="nav-link logout-link">Logout</a>
+
+                    </li>
+                    
+                    {% if request.user.is_superuser %}
+                        <li class="nav-item"><a href="{% url 'admin:index' %}" class="nav-link">Administración</a></li>
+                    {% endif %}
+                    
+                {% else %}
+                <ul class="navbar-nav me-auto">
+                    <li class="nav-item">
+                        <a href="{{ login_url }}" class="nav-link {% if request.path == login_url %}active{% endif %}">
+                            Inicia sesión
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="{{ signup_url }}" class="nav-link {% if request.path == signup_url %}active{% endif %}">
+                            Regístrate 
+                        </a>
+                    </li>
+                </ul>
+                {% endif %}
+            </div>
+        </div>
+    </nav>
+    
+      
+    
+    
+    <main>
+         {% block content %}
+         {% endblock  %}                 
+    </main>
+
+    <footer class="footer py-3 mb-4 border-bottom">
+        <p class="text-center">&copy; 2023 - ESCUELA DE EMPRENDIMIENTO (EELA)</p>
+            <p class="text-center ">
+                <a href="{% url 'landing' %}">
+                    <img src="{% static 'images/OOFavicon.png' %}" alt="Logo Origin Oasis" class="rounded logo-img">
+                </a>
+            </p>
+    </footer>
+     
+    <!-- Scripts de Bootstrap y Axios -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.3/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <script src="{% static 'js/main.js' %}"></script>
+
+
+</body>
+
+</body>
+      
+</html>
