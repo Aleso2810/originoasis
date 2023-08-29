@@ -20,7 +20,7 @@ class Campaign(models.Model):
     category = models.ForeignKey(Category, on_delete=models.CASCADE)
     name = models.CharField(max_length=255)
     description = models.TextField()
-    photo = models.ImageField(upload_to='campaign_photos/')
+    photo = models.URLField(max_length=300)
     beneficiary = models.ForeignKey(User, on_delete=models.CASCADE)
     target_amount = models.DecimalField(max_digits=10, decimal_places=2)
     collected_amount = models.DecimalField(max_digits=10, decimal_places=2, default=0)

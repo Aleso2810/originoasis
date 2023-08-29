@@ -114,7 +114,7 @@
     <div class="container grid">
       {% for campaign in lista_campaings %}
         <div class="project-card">
-          <img src="{{ campaign.photo.url }}" alt="{{ campaign.name }}">
+          <img src="{{ campaign.photo }}" alt="{{ campaign.name }}">
           <h3>{{ campaign.name }}</h3>
           <p>{{ campaign.description|slice:":100" }}{% if campaign.description|length > 100 %}...{% endif %}</p>
         </div>

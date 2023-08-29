@@ -50,6 +50,7 @@ INSTALLED_APPS = [
     'django_extensions',
     'paypal.standard.ipn',
     
+    
 
 ]
 
@@ -162,3 +163,4 @@ MEDIA_URL = '/media/'
 
 PAYPAL_RECEIVER_EMAIL = "pasm.28.10@gmail.com"
 PAYPAL_TEST = False  # Poner esto a False cuando estés listo para pasar a producción
+
