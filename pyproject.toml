@@ -5,7 +5,7 @@ description = ""
 authors = ["Alejandro Soria"]
 license = "MIT"
 readme = "README.md"
-packages = [{include = "proyecto_final"}]
+
 
 [tool.poetry.dependencies]
 python = "^3.10"
