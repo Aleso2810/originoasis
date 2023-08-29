@@ -26,9 +26,9 @@ jobs:
         run: pip install poetry
       
       - name: Install dependencies
-        working-directory: originoasis
-        run: poetry install
         
+        run: poetry -vvv install
+
       # Optional: Add step to run tests here (PyTest, Django test suites, etc.)
       
       - name: Upload artifact for deployment jobs
