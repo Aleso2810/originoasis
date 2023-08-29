@@ -31,7 +31,7 @@ DEBUG = env('DEBUG') in [True,'True','true']
 
 ALLOWED_HOSTS = ['localhost','originoasis.azurewebsites.net','127.0.0.1:8000', '127.0.0.1']
 
-CSRF_TRUSTED_ORIGINS=['htpps://originoasis.azurewebsites.net']
+CSRF_TRUSTED_ORIGINS=['https://originoasis.azurewebsites.net']
 
 
 
