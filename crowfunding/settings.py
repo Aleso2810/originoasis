@@ -24,12 +24,14 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/4.2/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'django-insecure-_$f84l&h*vw7hb34!8zt$xay75$$$+89g4msg7vbuovu^&9v)m'
+SECRET_KEY = env('SECRET_KEY')
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = env('DEBUG') in [True,'True','true']
 
-ALLOWED_HOSTS = ['127.0.0.1', '07ed-157-100-141-108.ngrok.io', '5525-181-199-38-173.ngrok-free.app']
+ALLOWED_HOSTS = ['localhost','originoasis.azurewebsites.net']
+
+CSRF_TRUSTED_ORIGINS=['https://originoasis.azurewebsites.net']
 
 
 
@@ -53,6 +55,7 @@ INSTALLED_APPS = [
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
+    'whitenoise.middleware.WhiteNoiseMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
@@ -60,6 +63,7 @@ MIDDLEWARE = [
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
+
     
 ]
 
@@ -134,6 +138,13 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/4.2/howto/static-files/
 
 STATIC_URL = 'static/'
+if DEBUG:
+    STATICFILES_DIRS =(BASE_DIR / 'static',)
+else:
+    STORAGES={
+        "staticfiles":{"BACKEND": "whitenoise.storage.CompressedStaticFilesStorage"}
+    }
+    STATIC_ROOT = BASE_DIR / 'static'
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.2/ref/settings/#default-auto-field
@@ -145,7 +156,8 @@ MEDIA_ROOT = os.path.join(BASE_DIR, 'media/')
 MEDIA_URL = '/media/'
 
 
-STATICFILES_DIRS = (BASE_DIR / 'static',)
+
+ 
 
 PAYPAL_RECEIVER_EMAIL = "pasm.28.10@gmail.com"
-PAYPAL_TEST = True  # Poner esto a False cuando estés listo para pasar a producción
+PAYPAL_TEST = False  # Poner esto a False cuando estés listo para pasar a producción

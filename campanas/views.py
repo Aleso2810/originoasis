@@ -28,43 +28,56 @@ ngrok_base_url = "https://7a54-181-199-59-173.ngrok-free.app"  # Asegúrate de r
 # Función para manejar el inicio de sesión
 def do_login(request):
     if request.method == "POST":
-        payload = json.loads(request.body)
-        user = authenticate(username=payload.get('username'), password=payload.get('password'))
-        if user is not None:
-            login(request, user)
-            result = {'login': True, 'msg': 'Sesión iniciada'}
-            return JsonResponse(result)
-        else:
-            result = {'login': False, 'msg': 'Usuario o contraseña incorrectas'}
-            return JsonResponse(result, status=401)
-        
+        try:
+            payload = json.loads(request.body)
+            username = payload['username']
+            password = payload['password']
+
+            user = authenticate(username=username, password=password)
+            if user:
+                login(request, user)
+                return JsonResponse({'login': True, 'msg': 'Sesión iniciada'})
+            else:
+                raise PermissionError('Invalid credentials')
+        except PermissionError as pe:
+            return JsonResponse({'login': False, 'msg': str(pe)}, status=401)
+        except Exception as e:
+            return JsonResponse({'error': str(e)}, status=400)
+
     return render(request, 'signin.html')
 
 
 # Función para manejar el registro de nuevos usuarios
 def signup(request):
     if request.method == "POST":
-        payload = json.loads(request.body)
-        
-        if User.objects.filter(email=payload.get('email')).exists():
-            result = {'success': False, 'msg': 'Ya existe un usuario registrado con el email ' + payload.get('email') }
-            return JsonResponse(result, status=400)
-        
-        new_user = User(
-                    username=payload.get('email'),
-                    password=make_password(payload.get('password')),
-                    is_superuser=False,
-                    first_name=payload.get('nombre'),
-                    last_name=payload.get('apellido'),
-                    email=payload.get('email'),
-                    is_staff=False,
-                    is_active=True,
-                    date_joined=datetime.now()
-                )
-        new_user.save()
-        result = {'success': True, 'msg': 'Usuario registrado'}
-        return JsonResponse(result)
-    
+        try:
+            payload = json.loads(request.body)
+            email = payload['email']
+            password = payload['password']
+            nombre = payload['nombre']
+            apellido = payload['apellido']
+
+            if User.objects.filter(email=email).exists():
+                raise ValueError(f'Ya existe un usuario registrado con el email {email}')
+
+            new_user = User(
+                username=email,
+                password=make_password(password),
+                is_superuser=False,
+                first_name=nombre,
+                last_name=apellido,
+                email=email,
+                is_staff=False,
+                is_active=True,
+                date_joined=datetime.now()
+            )
+            new_user.save()
+            return JsonResponse({'success': True, 'msg': 'Usuario registrado'})
+        except ValueError as ve:
+            return JsonResponse({'success': False, 'msg': str(ve)}, status=400)
+        except Exception as e:
+            return JsonResponse({'error': str(e)}, status=500)
+
     return render(request, 'signup.html')
 
 # Función para manejar el cierre de sesión
