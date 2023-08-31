@@ -5,6 +5,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Origin Oasis -  {% block title %}{% endblock %} </title>
+    <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
+
 
      <!-- CSS propio -->
      <link rel="stylesheet" type="text/css" href="{% static 'css/styles.css' %}">
@@ -23,6 +25,7 @@
         <div class="container-fluid d-flex justify-content-between">
             {% url 'campaings' as campaings_url %}
             {% url 'beneficiarys' as beneficiarys_url %}
+            {% url 'analitycs' as analitycs_url %}
             {% url 'login' as login_url %}
             {% url 'signup' as signup_url %}
 
@@ -39,7 +42,11 @@
                         Top Contribuyentes
                     </a>
                 </li>
-                
+                <li class="nav-item">
+                    <a href="{{ analitycs_url }}" class="nav-link {% if request.path == analitycs_url %}active{% endif %}">
+                        Analitycs
+                    </a>
+                </li>
             </ul>
             </div>    
         

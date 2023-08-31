@@ -1,0 +1,52 @@
+{% extends "index.html" %}
+{% load static %}
+{% load custom_filters %}
+
+{% block title %}
+    Analitycs
+{% endblock %}
+{% block content %}
+
+<div class="container ">
+    <h1 class="text-center"><i class="bi bi-cash-coin"></i> Valores Recolectados por Campañas</h1>
+    <div id="plot-div1" style="width: 100%; height: 100%;"></div>
+</div > 
+
+<div class="container ">
+  <h1 class="text-center"><i class="bi bi-cash-coin"></i> Valores Recolectados por Categoría</h1>
+  <div id="plot-div2" style="width: 100%; height: 100%;"></div>
+</div > 
+
+<div class="container ">
+  <h1 class="text-center"><i class="bi bi-cash-coin"></i> Campañas por Categoría</h1>
+  <div id="plot-div3" style="width: 100%; height: 100%;"></div>
+</div > }
+
+<div class="container ">
+  <h1 class="text-center"><i class="bi bi-clock-history"></i> Histórico de Donaciones</h1>
+  <div id="plot-div4" style="width: 100%; height: 100%;"></div>
+</div > 
+
+    <script type="text/javascript">
+      var figure1 = {{ fig1_json|safe }};
+      Plotly.newPlot('plot-div1', figure1);
+    </script>
+
+    <script type="text/javascript">
+      var figure2 = {{ fig2_json|safe }};
+      Plotly.newPlot('plot-div2', figure2);
+    </script>
+
+    <script type="text/javascript">
+      var figure3 = {{ fig3_json|safe }};
+      Plotly.newPlot('plot-div3', figure3);
+    </script>
+
+    <script type="text/javascript">
+      var figure4 = {{ fig4_json|safe }};
+      Plotly.newPlot('plot-div4', figure4);
+  </script>
+
+{% endblock %}
+
+

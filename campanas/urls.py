@@ -22,4 +22,8 @@ urlpatterns = [
     path('cancelled', views.cancelled, name='cancelled'),
     # Integración con PayPal
     path('paypal/', include('paypal.standard.ipn.urls')),
+
+    # Operaciones de Analitycs
+    path('analitycs/', views.analytics, name='analitycs'),
 ]
+    

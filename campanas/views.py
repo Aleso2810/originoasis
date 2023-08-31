@@ -260,3 +260,63 @@ def handle_valid_ipn(sender, **kwargs):
         # Manejar otros estados de pago si es necesario
         pass
 
+#Analitycs
+from collections import defaultdict
+import json
+import plotly.graph_objs as go
+from django.shortcuts import render
+
+def analytics(request):
+    # ... (tu código existente para importar modelos y demás)
+
+    # Primer gráfico: Valores recolectados por campaña
+    campaigns = Campaign.objects.all()
+    campaign_names = [campaign.name for campaign in campaigns]
+    collected_amounts = [float(campaign.collected_amount) for campaign in campaigns]
+    fig1 = go.Figure(data=go.Bar(x=campaign_names, y=collected_amounts))
+    fig1.update_layout(
+        xaxis_title="Nombres de Campaña",
+        yaxis_title="Valores Recaudados $",
+    )
+
+    # Segundo gráfico: Valores recolectados por categoría
+    category_dict = defaultdict(float)
+    for campaign in campaigns:
+        category_dict[campaign.category.name] += float(campaign.collected_amount)
+    category_names = list(category_dict.keys())
+    category_values = list(category_dict.values())
+    fig2 = go.Figure(data=go.Bar(x=category_names, y=category_values))
+    fig2.update_layout(
+        xaxis_title="Categorías",
+        yaxis_title="Valores Recaudados $",
+    )
+
+    # Tercer gráfico: Distribución de campañas por categoría (gráfico de pastel)
+    fig3 = go.Figure(data=go.Pie(labels=category_names, values=category_values))
+    fig3.update_layout(
+        title="Distribución de Campañas por Categoría",
+    )
+
+    # Cuarto gráfico: Donaciones a lo largo del tiempo
+    contributions = Contribution.objects.all().order_by('date')
+    contributions_dates = [str(d.date) for d in contributions]
+    contributions_amounts = [float(d.amount) for d in contributions]
+    fig4 = go.Figure(data=go.Scatter(x=contributions_dates, y=contributions_amounts, mode='lines+markers'))
+    fig4.update_layout(
+        xaxis_title="Fecha",
+        yaxis_title="Monto Donado $",
+    )
+
+    
+    # Convertir las figuras a diccionarios y luego a cadenas JSON
+    fig1_dict = fig1.to_dict()
+    fig1_json = json.dumps(fig1_dict, ensure_ascii=False)
+    fig2_dict = fig2.to_dict()
+    fig2_json = json.dumps(fig2_dict, ensure_ascii=False)
+    fig3_dict = fig3.to_dict()
+    fig3_json = json.dumps(fig3_dict, ensure_ascii=False)
+    fig4_dict = fig4.to_dict()
+    fig4_json = json.dumps(fig4_dict, ensure_ascii=False)
+
+    return render(request, 'analytics.html', {'fig1_json': fig1_json, 'fig2_json': fig2_json, 'fig3_json': fig3_json, 'fig4_json': fig4_json})
+
